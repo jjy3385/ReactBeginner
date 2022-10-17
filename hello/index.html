@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="root">
+
+    </div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    function MinutesToHours() {
+        const [amount, setAmount] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
+        const reset = () => setAmount(0);
+        const invert = () => {
+            reset();
+            setInverted((current) => !current);
+        };
+
+
+        const onChange = (event) => setAmount(event.target.value);
+        return (
+            <div>
+
+                <div>
+                    <label htmlFor="minutes">MINUTES</label>
+                    <input
+                        id="minutes"
+                        type="number"
+                        value={inverted ? amount * 60 : amount}
+                        onChange={onChange}
+                        disabled={inverted}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="hours">HOURS:</label>
+                    <input
+                        id="hours"
+                        type="number"
+                        value={inverted ? amount : Math.round(amount / 60)}
+                        onChange={onChange}
+                        disabled={!inverted}
+                    />
+                </div>
+                <button onClick={reset}>reset</button>
+                <button onClick={invert}>invert</button>
+
+            </div>
+        )
+    }
+    function KilogramsToPounds() {
+        const [amount, setAmount] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
+        const onChange = (event) => setAmount(event.target.value);
+        const reset = () => setAmount(0);
+        const invert = () => {
+            reset();
+            setInverted((current) => !current);
+        }
+
+        return (
+            <div>
+                <div>
+                    <label htmlFor="kilograms">KILOGRAMS</label>
+                    <input
+                        id="kilograms"
+                        type="number"
+                        value={inverted ? Math.round(amount / 2.2) : amount}
+                        onChange={onChange}
+                        disabled={inverted}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="pounds">POUNDS</label>
+                    <input
+                        id="pounds"
+                        type="number"
+                        value={!inverted ? Math.round(amount * 2.2) : amount}
+                        onChange={onChange}
+                        disabled={!inverted}
+                    />
+                </div>
+                <button onClick={reset}>reset</button>
+                <button onClick={invert}>invert</button>
+            </div>
+        )
+    }
+    function App() {
+        const [option, setOption] = React.useState("0");
+        const onSelect = (event) => setOption(event.target.value);
+        return (
+            <div>
+                <h1>Super Converter</h1>
+                <select onChange={onSelect} value={option}>
+                    <option value="0">Select your Converter</option>
+                    <option value="1">MinutesToHours</option>
+                    <option value="2">KilogramsToPounds</option>
+                </select>
+                <div>
+                    {option === "0" ? "please select your Converter" : null}
+                    {option === "1" ? <MinutesToHours /> : null}
+                    {option === "2" ? <KilogramsToPounds /> : null}
+                </div>
+            </div>
+        )
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+</script>
+
+</html>
