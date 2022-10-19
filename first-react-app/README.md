@@ -1,6 +1,6 @@
 # React 명령어 정리
 
-### 'npx create-react-app my-app'
+### `npx create-react-app my-app`
 * React 앱 생성
 * node js 설치되어 있어야함
 
